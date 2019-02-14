@@ -6,11 +6,12 @@ import NotePageNav from '../NotePageNav/NotePageNav'
 import NoteListMain from '../NoteListMain/NoteListMain'
 import NotePageMain from '../NotePageMain/NotePageMain'
 // import AddFolder from '../AddFolder/AddFolder'
-import AddNote from '../AddNote/AddNote'
+// import AddNote from '../AddNote/AddNote'
 import NotesContext from '../NotesContext';
 import { findNote } from '../notes-helpers'
 import './App.css';
 import AddFolder from '../NoteListNav/AddFolder';
+import AddNote from '../NotePageMain/AddNote';
 
 class App extends Component {
   state = {
@@ -41,6 +42,11 @@ class App extends Component {
       folder});
   }
 
+  addNoteToState = (note) =>{
+    this.setState({
+      notes: [...this.state.notes], 
+      note});
+  }
  
 
   componentDidMount() {
@@ -146,7 +152,7 @@ class App extends Component {
           //     />
           //   )
           // }}
-          component={AddNote}
+          render ={(routeProps) => <AddNote addNoteToState={this.addNoteToState} {...routeProps} />}
         />
       </>
     )
