@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class AddFolder extends Component {
 
@@ -70,6 +71,10 @@ class AddFolder extends Component {
         );
     }
 
+}
+
+AddFolder.propTypes = {
+    name: PropTypes.string.isRequired
 }
 
 export default AddFolder

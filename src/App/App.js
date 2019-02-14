@@ -12,6 +12,7 @@ import { findNote } from '../notes-helpers'
 import './App.css';
 import AddFolder from '../NoteListNav/AddFolder';
 import AddNote from '../NotePageMain/AddNote';
+import ErrorPage from './ErrorPage';
 
 class App extends Component {
   state = {
@@ -152,7 +153,7 @@ class App extends Component {
           //     />
           //   )
           // }}
-          render ={(routeProps) => <AddNote addNoteToState={this.addNoteToState} {...routeProps} />}
+          render ={(routeProps) => <AddNote addNoteToState={this.addNoteToState} folders={this.state.folders} {...routeProps} />}
         />
       </>
     )
@@ -169,6 +170,7 @@ class App extends Component {
     return (
       <NotesContext.Provider value={contextValue}>
         <div className='App'>
+          <ErrorPage>
           <nav className='App__nav'>
             {this.renderNavRoutes()}
           </nav>
@@ -182,6 +184,7 @@ class App extends Component {
           <main className='App__main'>
             {this.renderMainRoutes()}
           </main>
+          </ErrorPage>
         </div>
       </NotesContext.Provider>
     )

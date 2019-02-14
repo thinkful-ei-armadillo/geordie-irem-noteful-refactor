@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import NotesContext from '../NotesContext';
+import PropTypes from 'prop-types';
 
 export default class AddNote extends Component {
     state ={ 
@@ -17,6 +18,12 @@ export default class AddNote extends Component {
 
     setContent = (content) => {
         this.setState({content: content});
+    }
+
+    setFolder = (folder) => {
+        const id = folder.id
+        console.log(id);
+        this.setState({folderId: id})
     }
 
     validateName = name => {
@@ -40,7 +47,8 @@ export default class AddNote extends Component {
         const note = {
             name: this.state.name,
             content: this.state.content,
-            modified: this.state.modified
+            modified: this.state.modified,
+            folderId: this.state.folderId
         }
 
         fetch(`http://localhost:9090/notes`, {
@@ -61,7 +69,8 @@ export default class AddNote extends Component {
     static contextType = NotesContext
 
     render(){
-        // const {folders} = this.context;
+        const folders = this.props.folders;
+        console.log(folders);
         const validationMessages = this.state.validationMessages;
         const validName = this.state.nameValid
         return(
@@ -78,18 +87,17 @@ export default class AddNote extends Component {
                     </label>
                     <input type='text' placeholder='Type Note Content' name='noteContent'
                     onChange={(e)=>this.setContent(e.target.value)} />
-                    <select>
-                        {/* {folders.map(folder => {
-                        return (<option>folder</option>)
-                    }
-                } */}
+                    <select onChange={(e) => this.setFolder(e.target.value)}>
+                        {folders.map(folder => (<option>{folder.name}</option>))}
                     </select>
                     <button>Submit</button>
                 </form>
             </div>
         );
     }
+}
 
-
-
+AddNote.propTypes = {
+    name: PropTypes.string.isRequired,
+    content: PropTypes.string
 }
