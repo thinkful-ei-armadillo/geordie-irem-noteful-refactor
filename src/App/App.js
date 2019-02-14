@@ -35,8 +35,10 @@ class App extends Component {
     this.setState({notes: newNotes})
   }
 
-  addFolderToState = (id, name) =>{
-    this.setState({folders: [...folders], {id: id, name: name} });
+  addFolderToState = (folder) =>{
+    this.setState({
+      folders: [...this.state.folders], 
+      folder});
   }
 
  
@@ -85,7 +87,7 @@ class App extends Component {
         />
         <Route
           path='/add-folder'
-          render ={() => <AddFolder addFolderToState={this.addFolderToState}/>}
+          render ={(routeProps) => <AddFolder addFolderToState={this.addFolderToState} {...routeProps} />}
         />
         <Route
           path='/add-note'

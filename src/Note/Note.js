@@ -30,7 +30,6 @@ class Note extends Component {
 
 
   render(){
-    console.log(this.props.match.path)
   return (
     <NotesContext.Consumer>
        {(context) => (
