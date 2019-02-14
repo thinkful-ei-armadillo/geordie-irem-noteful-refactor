@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import NotesContext from '../NotesContext';
 import PropTypes from 'prop-types';
 
 export default class AddNote extends Component {
@@ -20,9 +19,7 @@ export default class AddNote extends Component {
         this.setState({content: content});
     }
 
-    setFolder = (folder) => {
-        const id = folder.id
-        console.log(id);
+    setFolder = (id) => {
         this.setState({folderId: id})
     }
 
@@ -66,11 +63,8 @@ export default class AddNote extends Component {
         });
     }
 
-    static contextType = NotesContext
-
     render(){
         const folders = this.props.folders;
-        console.log(folders);
         const validationMessages = this.state.validationMessages;
         const validName = this.state.nameValid
         return(
@@ -88,7 +82,7 @@ export default class AddNote extends Component {
                     <input type='text' placeholder='Type Note Content' name='noteContent'
                     onChange={(e)=>this.setContent(e.target.value)} />
                     <select onChange={(e) => this.setFolder(e.target.value)}>
-                        {folders.map(folder => (<option>{folder.name}</option>))}
+                        {folders.map(folder => (<option value={folder.id} key={folder.id}>{folder.name}</option>))}
                     </select>
                     <button>Submit</button>
                 </form>
