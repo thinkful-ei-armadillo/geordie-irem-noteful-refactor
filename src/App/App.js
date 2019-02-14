@@ -5,11 +5,12 @@ import NoteListNav from '../NoteListNav/NoteListNav'
 import NotePageNav from '../NotePageNav/NotePageNav'
 import NoteListMain from '../NoteListMain/NoteListMain'
 import NotePageMain from '../NotePageMain/NotePageMain'
-import AddFolder from '../AddFolder/AddFolder'
+// import AddFolder from '../AddFolder/AddFolder'
 import AddNote from '../AddNote/AddNote'
 import NotesContext from '../NotesContext';
 import { findNote } from '../notes-helpers'
-import './App.css'
+import './App.css';
+import AddFolder from '../NoteListNav/AddFolder';
 
 class App extends Component {
   state = {
@@ -32,6 +33,10 @@ class App extends Component {
   deleteNote = noteId => {
     const newNotes = this.state.notes.filter((note) => note.id !== noteId);
     this.setState({notes: newNotes})
+  }
+
+  addFolderToState = (id, name) =>{
+    this.setState({folders: [...folders], {id: id, name: name} });
   }
 
  
@@ -80,7 +85,7 @@ class App extends Component {
         />
         <Route
           path='/add-folder'
-          component={NotePageNav}
+          render ={() => <AddFolder addFolderToState={this.addFolderToState}/>}
         />
         <Route
           path='/add-note'
@@ -125,10 +130,10 @@ class App extends Component {
             )
           }}
         />
-        <Route
+        {/* <Route
           path='/add-folder'
           component={AddFolder}
-        />
+        /> */}
         <Route
           path='/add-note'
           // render={routeProps => {
